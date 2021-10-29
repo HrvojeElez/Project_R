@@ -30,7 +30,9 @@ double cmplx_phs(cmplx_t a) {
 }
 
 // returns real part of mag/_phs
-double cmplx_real(double mag, double phs);
+double cmplx_real(double mag, double phs) {
+    return cos(phs) * mag ;
+}
 
 // returns imaginary part of mag/_phs
 double cmplx_imag(double mag, double phs);
@@ -52,6 +54,7 @@ int main()
     printf("%lf %f\n", treci[0], treci[1]);
     printf("%lf\n", cmplx_mag(prvi));
     printf("%.2lf\n", cmplx_phs(prvi));
+    printf("%.2lf\n", cmplx_real(10.44, 0.29));
 
     return 0;
 }
