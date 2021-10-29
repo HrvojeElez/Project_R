@@ -25,7 +25,9 @@ double cmplx_mag(cmplx_t a) {
 }
 
 // returns phase in radians of a 
-double cmplx_phs(cmplx_t a);
+double cmplx_phs(cmplx_t a) {
+    return atan((double)a[1]/a[0]);
+}
 
 // returns real part of mag/_phs
 double cmplx_real(double mag, double phs);
@@ -47,8 +49,9 @@ int main()
 
     cmplx_mul(prvi,drugi,treci);
 
-    printf("%f %f\n", treci[0], treci[1]);
-    printf("%f\n", cmplx_mag(prvi));
+    printf("%lf %f\n", treci[0], treci[1]);
+    printf("%lf\n", cmplx_mag(prvi));
+    printf("%.2lf\n", cmplx_phs(prvi));
 
     return 0;
 }
