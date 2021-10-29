@@ -35,7 +35,9 @@ double cmplx_real(double mag, double phs) {
 }
 
 // returns imaginary part of mag/_phs
-double cmplx_imag(double mag, double phs);
+double cmplx_imag(double mag, double phs) {
+    return sin(phs) * mag ;
+}
 
 // returns dft transformation of complex input signal
 void cmplx_dft(cmplx_t *input, cmplx_t *output, int N);
@@ -55,6 +57,8 @@ int main()
     printf("%lf\n", cmplx_mag(prvi));
     printf("%.2lf\n", cmplx_phs(prvi));
     printf("%.2lf\n", cmplx_real(10.44, 0.29));
+    printf("%.3lf\n", cmplx_imag(10.44, 0.29));
+
 
     return 0;
 }
