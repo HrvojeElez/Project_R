@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#define PI 3.14159
 
 typedef float cmplx_t[2];
 
@@ -26,7 +27,25 @@ double cmplx_mag(cmplx_t a) {
 
 // returns phase in radians of a 
 double cmplx_phs(cmplx_t a) {
-    return atan((double)a[1]/a[0]);
+    double result = atan(a[1] / a[0]);
+
+    if(a[0] >= 0) {
+
+        if(a[1] >= 0) {
+            return result;
+        }
+        else {
+            return result + 2 * PI;
+        }
+    }
+    else {
+        if(a[1] >= 0) {
+            return result + PI;
+        }
+        else {
+            return result + PI;
+        }
+    }
 }
 
 // returns real part of mag/_phs
@@ -40,14 +59,56 @@ double cmplx_imag(double mag, double phs) {
 }
 
 // returns dft transformation of complex input signal
-void cmplx_dft(cmplx_t *input, cmplx_t *output, int N);
+void cmplx_dft(cmplx_t *input, cmplx_t *output, int N) {
+    cmplx_t result, temp;
+    double fi;
+
+    for(int i = 0; i < N; i++)
+    {
+        output[i][0] = 0;
+        output[i][1] = 0;
+
+        for(int j = 0; j < N; j++) {
+            fi = -2 * PI * (1.0/N) * i * j;
+            temp[0] = cmplx_real(1,fi);
+            temp[1] = cmplx_imag(1,fi);
+            cmplx_mul(input[j],temp,result);
+
+            output[i][0]+=result[0];
+            output[i][1]+=result[1];
+        }
+    }
+}
 
 // returns inverse dft transformation of complex input signal
-void cmplx_idft(cmplx_t *input, cmplx_t *output, int N);
+void cmplx_idft(cmplx_t *input, cmplx_t *output, int N) {
+        cmplx_t result, temp;
+    double fi;
+
+    for(int i = 0; i < N; i++)
+    {
+        output[i][0] = 0;
+        output[i][1] = 0;
+
+        for(int j = 0; j < N; j++) {
+            fi = -2 * PI * (1.0/N) * i * j;
+            temp[0] = cmplx_real(1,fi);
+            temp[1] = cmplx_imag(1,fi);
+            cmplx_mul(input[j],temp,result);
+
+            output[i][0]+=result[0];
+            output[i][1]+=result[1];
+        }
+
+        output[i][0]*=(1./N);
+        output[i][1]*=(1./N);
+
+    }
+}
 
 int main()
 {
-    cmplx_t prvi = {1,1};
+    cmplx_t prvi = {1,0};
     cmplx_t drugi = {1,1};
     cmplx_t treci = {0,0};
 
@@ -55,7 +116,7 @@ int main()
 
     printf("%lf %f\n", treci[0], treci[1]);
     printf("%lf\n", cmplx_mag(prvi));
-    printf("%.2lf\n", cmplx_phs(prvi));
+    printf("%.2lf  o\n", cmplx_phs(prvi));
     printf("%.2lf\n", cmplx_real(10.44, 0.29));
     printf("%.3lf\n", cmplx_imag(10.44, 0.29));
 
