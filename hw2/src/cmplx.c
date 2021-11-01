@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-#define PI 3.14159
+#define PI 3.14159265358979
 
 typedef float cmplx_t[2];
 
@@ -27,6 +27,11 @@ double cmplx_mag(cmplx_t a) {
 
 // returns phase in radians of a 
 double cmplx_phs(cmplx_t a) {
+    if(a[0] == 0) {
+        if(a[1] > 0) return PI / 2.0;
+        else if (a[1] < 0) return -PI /2.0;
+        else return 0.0;
+    }
     double result = atan(a[1] / a[0]);
 
     if(a[0] >= 0) {
@@ -82,7 +87,8 @@ void cmplx_dft(cmplx_t *input, cmplx_t *output, int N) {
 
 // returns inverse dft transformation of complex input signal
 void cmplx_idft(cmplx_t *input, cmplx_t *output, int N) {
-        cmplx_t result, temp;
+    
+    cmplx_t result, temp;
     double fi;
 
     for(int i = 0; i < N; i++)
@@ -104,22 +110,4 @@ void cmplx_idft(cmplx_t *input, cmplx_t *output, int N) {
         output[i][1]*=(1./N);
 
     }
-}
-
-int main()
-{
-    cmplx_t prvi = {1,0};
-    cmplx_t drugi = {1,1};
-    cmplx_t treci = {0,0};
-
-    cmplx_mul(prvi,drugi,treci);
-
-    printf("%lf %f\n", treci[0], treci[1]);
-    printf("%lf\n", cmplx_mag(prvi));
-    printf("%.2lf  o\n", cmplx_phs(prvi));
-    printf("%.2lf\n", cmplx_real(10.44, 0.29));
-    printf("%.3lf\n", cmplx_imag(10.44, 0.29));
-
-
-    return 0;
 }

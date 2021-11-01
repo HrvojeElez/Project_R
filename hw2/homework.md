@@ -60,7 +60,7 @@ void write_half(int fd, short word);
 ```
 
 Za pisanje i čitanje iz datoteke, koristiti funkcije read, write, open. 
-Dokumentacija je dostupna na http://man7.org/linux/man-pages/man2/read.2.html.
+Dokumentacija je dostupna na    .
 
 Testiranje ``read`` i ``write`` funkcija i odnosno ``dft`` i ``idft`` 
 funkcija obaviti na sljedeći način:
@@ -83,10 +83,7 @@ uzeti cijeli broj te decimalne vrijednosti. Stoga da bi sačuvali ``float``
 vrijednost u pravom formatu i zapisali je u datoteku, potrebno je učiniti
 sljedeće:
 ```
-float vrijednost = 3.84;
-void *a = (void *) &vrijednost;
-int vrijednost_ieee = *((int *) a);
-int vrijednost_cijeli_broj = (int) vrijednost;
+  
 ```
 U varijabli ``vrijednost_ieee`` je zapisano išto što i u varijabli ``vrijednost``
 ali je drugačiji kontekst odnosno tip. Varijablu ``vrijednost_ieee`` predati
