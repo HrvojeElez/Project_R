@@ -1,0 +1,44 @@
+diff --git a/Makefile b/Makefile
+index b6f84f8..c1cec90 100644
+--- a/Makefile
++++ b/Makefile
+@@ -31,4 +31,4 @@ clean:
+ 	+$(MAKE) -C apps clean
+ 
+ export: apps
+-	scp apps/$(APP)/$(APP).bin odroid:~/app.bin
++	scp apps/$(APP)/$(APP).bin ~/app.bin
+diff --git a/config.mk b/config.mk
+index 8aab819..74785cd 100644
+--- a/config.mk
++++ b/config.mk
+@@ -9,8 +9,8 @@
+ ################################################################################
+ 
+ # Toolchain
+-TOOLCHAIN_ROOT = /home/dumpram/arm-compilers/gcc-arm-none-eabi-5_4-2016q3
+-PREFIX = ~/arm-compilers/gcc-arm-none-eabi-5_4-2016q3/bin/arm-none-eabi-
++TOOLCHAIN_ROOT = ~/../../usr/share/gcc-arm-none-eabi-10.3-2021.10
++PREFIX = ~/../../usr/bin/arm-none-eabi-
+ 
+ CC = $(PREFIX)gcc
+ AS = $(PREFIX)gcc
+@@ -19,7 +19,7 @@ AR = $(PREFIX)ar
+ BIN = $(PREFIX)objcopy
+ 
+ LIB_C = $(TOOLCHAIN_ROOT)/arm-none-eabi/lib
+-LIB_GCC = $(TOOLCHAIN_ROOT)/lib/gcc/arm-none-eabi/5.4.1
++LIB_GCC = $(TOOLCHAIN_ROOT)/lib/gcc/arm-none-eabi/10.3.1
+ 
+ # C source flags
+ CFLAGS = -Wall \
+@@ -30,7 +30,8 @@ CFLAGS = -Wall \
+          -mfloat-abi=softfp \
+          -fomit-frame-pointer \
+          -fno-strict-aliasing \
+-         -nostdlib
++         -nostdlib \
++         -std=gnu99
+ 
+ INCLUDE = -I $(PROJECT_ROOT)/include/api \
+           -I $(PROJECT_ROOT)/include/arch \
