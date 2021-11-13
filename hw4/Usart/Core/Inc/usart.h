@@ -43,6 +43,7 @@ void MX_USART1_UART_Init(void);
 void USART1_SendChar(uint8_t c);
 int USART1_Dequeue(char* c);
 void USER_UART_IRQ_Handler(UART_HandleTypeDef *huart);
+void USART1_Stop();
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

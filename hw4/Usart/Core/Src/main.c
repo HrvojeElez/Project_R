@@ -34,6 +34,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define END_CHAR 'x'
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -97,7 +98,13 @@ int main(void)
   {
     /* USER CODE END WHILE */
 	  if(USART1_Dequeue(&c) != 0) {
-		  USART1_SendChar(c);
+		  if(c != END_CHAR) {
+			USART1_SendChar(c);
+		  }
+		  else {
+			  USART1_Stop();
+			  //while(1);
+		  }
 	  }
     /* USER CODE BEGIN 3 */
   }

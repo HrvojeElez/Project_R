@@ -159,6 +159,13 @@ int USART1_Dequeue(char* c) {
 	HAL_NVIC_EnableIRQ(USART1_IRQn);
 	return ret;
 }
+
+void USART1_Stop() {
+	char msg[] = " now exiting loopback mode ";
+
+	HAL_UART_Transmit(&huart1, (uint8_t *)msg, sizeof(msg), 100);
+	HAL_UART_DeInit(&huart1);
+}
 /* USER CODE END 1 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
