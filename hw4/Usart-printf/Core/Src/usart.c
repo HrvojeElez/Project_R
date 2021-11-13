@@ -205,8 +205,8 @@ void my_printf(char* format, ...) {
     }
 }
 void test_printf() {
-	long ocjena = 50;
-	my_printf("Proba ispisa je za %d\n", ocjena);
+	long ocjena = 1150;
+	my_printf("Ispis je  %d\n", ocjena);
 }
 
 
